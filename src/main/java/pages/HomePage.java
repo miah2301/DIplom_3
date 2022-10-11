@@ -1,9 +1,12 @@
+package pages;
+
 import com.codeborne.selenide.SelenideElement;
+import constants.Constants;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
-public class HomePage extends Constants{
+public class HomePage extends Constants {
 
     public HomePage(String url) {
         open(url);
@@ -14,6 +17,7 @@ public class HomePage extends Constants{
     private final SelenideElement constructorLink = $x("//p[text() = 'Конструктор']");
     private final SelenideElement mainHeading = $x("//h1[text() = 'Соберите бургер']");
     private final SelenideElement logo = $x("//div[@class='AppHeader_header__logo__2D0X2']");
+    private final SelenideElement rollsLink = $x("//span[text()='Булки']");
 
     public LoginPage clickOnPersonalAccountButton(){
         personalAccountButton.click();
@@ -33,5 +37,10 @@ public class HomePage extends Constants{
     public String clickOnLogo(){
         logo.click();
         return mainHeading.getText();
+    }
+
+    public void clickRolls(){
+        rollsLink.click();
+        String lol = rollsLink.getAttribute("class");
     }
 }

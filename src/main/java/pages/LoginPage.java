@@ -1,8 +1,11 @@
+package pages;
+
 import com.codeborne.selenide.SelenideElement;
+import constants.Constants;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class LoginPage extends Constants{
+public class LoginPage extends Constants {
     protected final SelenideElement registrationLink = $x("//a[@class = 'Auth_link__1fOlj'][text() = 'Зарегистрироваться']");
     protected final SelenideElement emailRegField = $x("//label[text() = 'Email']/following-sibling::input");
     protected final SelenideElement passwordRegField = $x("//label[text() = 'Пароль']/following-sibling::input");
