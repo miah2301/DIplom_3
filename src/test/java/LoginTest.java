@@ -1,3 +1,4 @@
+import io.qameta.allure.junit4.DisplayName;
 import pages.HomePage;
 import com.codeborne.selenide.Selenide;
 import constants.Constants;
@@ -12,6 +13,7 @@ public class LoginTest extends Constants {
         Selenide.closeWebDriver();
     }
 
+    @DisplayName("Login using the -Login to account- button on the main page")
     @Test
     public void loginFromButtonMainPage(){
         String actual = new HomePage(URL)
@@ -22,6 +24,7 @@ public class LoginTest extends Constants {
         Assert.assertEquals(TEST_EMAIL, actual);
     }
 
+    @DisplayName("Login via the -Personal Account- button")
     @Test
     public void loginFromPersonalAccountButton(){
         String actual = new HomePage(URL)
@@ -32,6 +35,7 @@ public class LoginTest extends Constants {
         Assert.assertEquals(TEST_EMAIL, actual);
     }
 
+    @DisplayName("Login via the button in the registration form")
     @Test
     public void loginFromRegistrationLink(){
         String actual = new HomePage(URL)
@@ -44,6 +48,7 @@ public class LoginTest extends Constants {
         Assert.assertEquals(TEST_EMAIL, actual);
     }
 
+    @DisplayName("Login via the button in the password recovery form")
     @Test
     public void loginFromRecoverLink(){
         String actual = new HomePage(URL)

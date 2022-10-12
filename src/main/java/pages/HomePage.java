@@ -14,10 +14,6 @@ public class HomePage extends Constants {
 
     private final SelenideElement personalAccountButton = $x("//p[text() = 'Личный Кабинет']");
     private final SelenideElement loginButtonMainPage = $x("//button[text() = 'Войти в аккаунт']");
-    private final SelenideElement constructorLink = $x("//p[text() = 'Конструктор']");
-    private final SelenideElement mainHeading = $x("//h1[text() = 'Соберите бургер']");
-    private final SelenideElement logo = $x("//div[@class='AppHeader_header__logo__2D0X2']");
-    private final SelenideElement rollsLink = $x("//span[text()='Булки']");
 
     public LoginPage clickOnPersonalAccountButton(){
         personalAccountButton.click();
@@ -29,18 +25,5 @@ public class HomePage extends Constants {
         return new LoginPage();
     }
 
-    public String clickOnConstructorLink(){
-        constructorLink.click();
-        return mainHeading.getText();
-    }
 
-    public String clickOnLogo(){
-        logo.click();
-        return mainHeading.getText();
-    }
-
-    public void clickRolls(){
-        rollsLink.click();
-        String lol = rollsLink.getAttribute("class");
-    }
 }

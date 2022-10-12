@@ -1,5 +1,6 @@
 import com.codeborne.selenide.SelenideElement;
 import constants.Constants;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
 import org.junit.Test;
 import pages.HomePage;
@@ -22,6 +23,7 @@ public class ConstructorTest extends Constants {
     }
     private final String activeCategory = "tab_tab_type_current__2BEPc";
 
+    @DisplayName("Transitions to sections work -Rolls-")
     @Test
     public void clickRolls(){
         String classActiveField = rollsLinkAttribute.getAttribute("class");
@@ -29,6 +31,7 @@ public class ConstructorTest extends Constants {
         assertThat(classActiveField, containsString(activeCategory));
     }
 
+    @DisplayName("Transitions to sections work -Souse-")
     @Test
     public void clickSouse(){
         souseLink.click();
@@ -37,6 +40,7 @@ public class ConstructorTest extends Constants {
         assertThat(classActiveField, containsString(activeCategory));
     }
 
+    @DisplayName("Transitions to sections work -Filling-")
     @Test
     public void clickFilling(){
         fillingLink.click();
