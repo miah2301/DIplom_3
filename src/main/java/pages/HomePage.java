@@ -4,9 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 import constants.Constants;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
 
-public class HomePage extends Constants {
+public class HomePage{
 
     private final SelenideElement rollsLinkAttribute = $x("//span[text()='Булки']/..");
     private final SelenideElement souseLink = $x("//span[text()='Соусы']");

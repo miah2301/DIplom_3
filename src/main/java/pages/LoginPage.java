@@ -5,7 +5,7 @@ import constants.Constants;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class LoginPage extends Constants {
+public class LoginPage{
     protected final SelenideElement registrationLink = $x("//a[@class = 'Auth_link__1fOlj'][text() = 'Зарегистрироваться']");
     protected final SelenideElement emailRegField = $x("//label[text() = 'Email']/following-sibling::input");
     protected final SelenideElement passwordRegField = $x("//label[text() = 'Пароль']/following-sibling::input");
@@ -13,6 +13,7 @@ public class LoginPage extends Constants {
     protected final SelenideElement personalAccountButton = $x("//p[text() = 'Личный Кабинет']");
     protected final SelenideElement recoverPasswordLink = $x("//a[@class = 'Auth_link__1fOlj'][text() = 'Восстановить пароль']");
     protected final SelenideElement textLogin = $x("//div[@class = 'Auth_login__3hAey']/h2");
+
     public RegistrationPage clickOnRegButton(){
         registrationLink.click();
         return new RegistrationPage();
@@ -27,9 +28,9 @@ public class LoginPage extends Constants {
         return emailRegField.getValue();
     }
 
-    public ProfilePage loginUser(){
-        emailRegField.setValue(TEST_EMAIL);
-        passwordRegField.setValue(TEST_Password);
+    public ProfilePage loginUser(String email, String password){
+        emailRegField.setValue(email);
+        passwordRegField.setValue(password);
         loginButtonMainPage.click();
         personalAccountButton.click();
         return new ProfilePage();

@@ -38,8 +38,8 @@ public class ProfilePage extends LoginPage{
         return mainHeading.getText();
     }
 
-    public void clickRolls(){
+/*    public void clickRolls(){
         rollsLink.click();
         String lol = rollsLink.getAttribute("class");
-    }
+    }*/
 }

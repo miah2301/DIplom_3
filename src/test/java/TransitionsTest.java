@@ -1,15 +1,25 @@
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
+import org.junit.Before;
 import pages.HomePage;
-import constants.Constants;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TransitionsTest extends Constants {
+import static com.codeborne.selenide.Selenide.open;
+
+public class TransitionsTest{
 
     private static final String expectedText = "Вход";
     private static final String expectedHeading = "Соберите бургер";
+    private final String TEST_EMAIL = "testemail123@yandex.ru";
+    private final String TEST_PASSWORD = "password1234";
+
+    @Before
+    public void setUp(){
+        String URL = "https://stellarburgers.nomoreparties.site/";
+        open(URL);
+    }
 
     @DisplayName("Transfer to your personal account")
     @Test
@@ -26,7 +36,7 @@ public class TransitionsTest extends Constants {
     public void checkLogoClick(){
         String actual = new HomePage()
                 .clickOnPersonalAccountButton()
-                .loginUser()
+                .loginUser(TEST_EMAIL, TEST_PASSWORD)
                 .clickOnLogo();
 
         Assert.assertEquals(expectedHeading, actual);
@@ -37,7 +47,7 @@ public class TransitionsTest extends Constants {
     public void checkConstructorLink(){
         String actual = new HomePage()
                 .clickOnPersonalAccountButton()
-                .loginUser()
+                .loginUser(TEST_EMAIL, TEST_PASSWORD)
                 .clickOrderLink()
                 .clickOnConstructorLink();
 
@@ -49,7 +59,7 @@ public class TransitionsTest extends Constants {
     public void logoutUser(){
         String actual = new HomePage()
                 .clickOnLoginButtonMainPage()
-                .loginUser()
+                .loginUser(TEST_EMAIL, TEST_PASSWORD)
                 .clickLogoutButton()
                 .checkTextLogin();
 

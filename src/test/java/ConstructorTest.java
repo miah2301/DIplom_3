@@ -1,6 +1,8 @@
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import constants.Constants;
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pages.HomePage;
@@ -12,12 +14,11 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ConstructorTest {
-
-    private final static String URL = "https://stellarburgers.nomoreparties.site/";
     private final String activeCategory = "tab_tab_type_current__2BEPc";
 
     @Before
     public void setUp(){
+        String URL = "https://stellarburgers.nomoreparties.site/";
         open(URL);
     }
 

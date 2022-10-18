@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class RecoverPasswordPage extends LoginPage{
+public class RecoverPasswordPage{
     private final SelenideElement loginLinkRecover = $x("//a[text() = 'Войти']");
 
     public LoginPage clickLoginLinkRecover(){
