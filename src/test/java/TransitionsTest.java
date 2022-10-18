@@ -8,18 +8,13 @@ import org.junit.Test;
 
 public class TransitionsTest extends Constants {
 
-    @After
-    public void tearDown(){
-        Selenide.closeWebDriver();
-    }
-
     private static final String expectedText = "Вход";
     private static final String expectedHeading = "Соберите бургер";
 
     @DisplayName("Transfer to your personal account")
     @Test
     public void checkTransitionPersonalAccountButton(){
-        String actual = new HomePage(URL)
+        String actual = new HomePage()
                 .clickOnPersonalAccountButton()
                 .checkTextLogin();
 
@@ -29,7 +24,7 @@ public class TransitionsTest extends Constants {
     @DisplayName("Switching from the personal account to the constructor via the logo")
     @Test
     public void checkLogoClick(){
-        String actual = new HomePage(URL)
+        String actual = new HomePage()
                 .clickOnPersonalAccountButton()
                 .loginUser()
                 .clickOnLogo();
@@ -40,7 +35,7 @@ public class TransitionsTest extends Constants {
     @DisplayName("Transfer from your personal account to the constructor via -the constructor link-")
     @Test
     public void checkConstructorLink(){
-        String actual = new HomePage(URL)
+        String actual = new HomePage()
                 .clickOnPersonalAccountButton()
                 .loginUser()
                 .clickOrderLink()
@@ -52,12 +47,17 @@ public class TransitionsTest extends Constants {
     @DisplayName("Check the exit by clicking the -Exit- button in your personal account")
     @Test
     public void logoutUser(){
-        String actual = new HomePage(URL)
+        String actual = new HomePage()
                 .clickOnLoginButtonMainPage()
                 .loginUser()
                 .clickLogoutButton()
                 .checkTextLogin();
 
         Assert.assertEquals(expectedText, actual);
+    }
+
+    @After
+    public void tearDown(){
+        Selenide.closeWebDriver();
     }
 }

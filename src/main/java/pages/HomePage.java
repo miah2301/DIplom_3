@@ -8,10 +8,11 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class HomePage extends Constants {
 
-    public HomePage(String url) {
-        open(url);
-    }
-
+    private final SelenideElement rollsLinkAttribute = $x("//span[text()='Булки']/..");
+    private final SelenideElement souseLink = $x("//span[text()='Соусы']");
+    private final SelenideElement souseLinkAttribute = $x("//span[text()='Соусы']/..");
+    private final SelenideElement fillingLink = $x("//span[text()='Начинки']");
+    private final SelenideElement fillingLinkAttribute = $x("//span[text()='Начинки']/..");
     private final SelenideElement personalAccountButton = $x("//p[text() = 'Личный Кабинет']");
     private final SelenideElement loginButtonMainPage = $x("//button[text() = 'Войти в аккаунт']");
 
@@ -25,5 +26,17 @@ public class HomePage extends Constants {
         return new LoginPage();
     }
 
+    public String getRollsLinkAttribute(){
+        return rollsLinkAttribute.getAttribute("class");
+    }
 
+    public String getSouseLinkAttribute(){
+        souseLink.click();
+        return souseLinkAttribute.getAttribute("class");
+    }
+
+    public String getFillingLinkAttribute(){
+        fillingLink.click();
+        return fillingLinkAttribute.getAttribute("class");
+    }
 }
