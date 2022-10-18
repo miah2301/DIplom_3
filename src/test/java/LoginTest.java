@@ -21,8 +21,7 @@ public class LoginTest{
 
     @Before
     public void setUp(){
-        String URL = "https://stellarburgers.nomoreparties.site/";
-        open(URL);
+        open(HomePage.URL);
         user = User.getRandomUser();
 
         ValidatableResponse getToken = userClient.createUser(user);

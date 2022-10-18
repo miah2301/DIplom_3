@@ -1,7 +1,10 @@
+import client.UserClient;
 import com.codeborne.selenide.Selenide;
 import emity.Login;
 import emity.User;
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.ValidatableResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import pages.HomePage;
@@ -15,12 +18,17 @@ public class TransitionsTest{
     private static final String expectedText = "Вход";
     private static final String expectedHeading = "Соберите бургер";
 
-    User user;
+    private User user;
+    private String accessToken;
+    UserClient userClient = new UserClient();
 
     @Before
     public void setUp(){
-        String URL = "https://stellarburgers.nomoreparties.site/";
-        open(URL);
+        open(HomePage.URL);
+        user = User.getRandomUser();
+
+        ValidatableResponse getToken = userClient.createUser(user);
+        accessToken = StringUtils.substringAfter(getToken.extract().path("accessToken"), " ");
     }
 
     @DisplayName("Transfer to your personal account")
@@ -70,6 +78,7 @@ public class TransitionsTest{
 
     @After
     public void tearDown(){
+        userClient.deleteUser(accessToken);
         Selenide.closeWebDriver();
     }
 }
