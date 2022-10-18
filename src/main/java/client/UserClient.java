@@ -1,16 +1,17 @@
 package client;
 
+import constants.Constants;
 import emity.User;
 import io.restassured.response.ValidatableResponse;
 
 import static io.restassured.RestAssured.given;
 
-public class UserClient {
+public class UserClient extends Constants {
     public ValidatableResponse createUser(User user) {
          return given()
                 .header("Content-type", "application/json")
                 .body(user)
-                .post("https://stellarburgers.nomoreparties.site/api/auth/register")
+                .post(REG_API)
                 .then()
                 .log().all();
 
@@ -20,7 +21,7 @@ public class UserClient {
         given()
                 .header("Content-type", "application/json")
                 .auth().oauth2(accessToken)
-                .delete("https://stellarburgers.nomoreparties.site/api/auth/user")
+                .delete(DEL_API)
                 .then()
                 .log().all();
     }
