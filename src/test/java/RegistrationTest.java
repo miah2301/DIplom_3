@@ -1,47 +1,64 @@
+import client.UserClient;
+import com.codeborne.selenide.Selenide;
+import emity.User;
 import io.qameta.allure.junit4.DisplayName;
-import org.apache.commons.lang3.RandomStringUtils;
+import io.restassured.response.ValidatableResponse;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import pages.HomePage;
-import constants.Constants;
 import org.junit.Assert;
 import org.junit.Test;
 
 import static com.codeborne.selenide.Selenide.open;
 
 public class RegistrationTest{
+
+    UserClient userClient = new UserClient();
+    private User user;
+    private String accessToken;
     private final static String expectedErrorMessage = "Некорректный пароль";
-    private static final String randomEmailUser = RandomStringUtils.randomAlphanumeric(15) + "@yandex.ru";
-    private final String TEST_EMAIL = "testemail123@yandex.ru";
-    private final String TEST_NAME = "testName";
 
     @Before
     public void setUp(){
         String URL = "https://stellarburgers.nomoreparties.site/";
         open(URL);
+        user = User.getRandomUser();
+
+        ValidatableResponse getToken = userClient.createUser(user);
+        accessToken = StringUtils.substringAfter(getToken.extract().path("accessToken"), " ");
     }
 
     @DisplayName("Verification of successful registration with a random user")
     @Test
     public void successfulRegistration(){
-        String TEST_PASSWORD = "password1234";
-
         String actual = new HomePage()
                 .clickOnPersonalAccountButton()
                 .clickOnRegButton()
-                .registrationNewUser(TEST_NAME, TEST_EMAIL, TEST_PASSWORD)
+                .registrationNewUser(user)
                 .getTextEmailField();
 
-        Assert.assertEquals(TEST_EMAIL, actual);
+        Assert.assertEquals(user.getEmail(), actual);
     }
 
     @DisplayName("Checking registration with a password less than 6 characters long")
     @Test
     public void checkErrorMessageBadPassword(){
+        user.setPassword("123");
+
         String actual = new HomePage()
                 .clickOnPersonalAccountButton()
                 .clickOnRegButton()
-                .registrationNewUserWithBadPassword(TEST_NAME, TEST_EMAIL, "123");
+                .registrationNewUserWithBadPassword(user);
 
         Assert.assertEquals(expectedErrorMessage, actual);
+    }
+
+    @After
+    public void tearDown(){
+        if (accessToken != null) {
+            userClient.deleteUser(accessToken);
+        }
+        Selenide.closeWebDriver();
     }
 }

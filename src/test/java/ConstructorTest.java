@@ -1,13 +1,7 @@
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import constants.Constants;
 import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pages.HomePage;
-
-import static com.codeborne.selenide.Selenide.$x;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.CoreMatchers.containsString;

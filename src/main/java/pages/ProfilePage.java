@@ -12,7 +12,6 @@ public class ProfilePage extends LoginPage{
     private final SelenideElement ordersLink = $x("//p[text() = 'Лента Заказов']");
     private final SelenideElement mainHeading = $x("//h1[text() = 'Соберите бургер']");
     private final SelenideElement logo = $x("//div[@class='AppHeader_header__logo__2D0X2']");
-    private final SelenideElement rollsLink = $x("//span[text()='Булки']");
 
     public String getEmailProfile(){
         return loginField.getValue();
@@ -38,8 +37,4 @@ public class ProfilePage extends LoginPage{
         return mainHeading.getText();
     }
 
-/*    public void clickRolls(){
-        rollsLink.click();
-        String lol = rollsLink.getAttribute("class");
-    }*/
 }

@@ -1,4 +1,6 @@
 import com.codeborne.selenide.Selenide;
+import emity.Login;
+import emity.User;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
@@ -12,8 +14,8 @@ public class TransitionsTest{
 
     private static final String expectedText = "Вход";
     private static final String expectedHeading = "Соберите бургер";
-    private final String TEST_EMAIL = "testemail123@yandex.ru";
-    private final String TEST_PASSWORD = "password1234";
+
+    User user;
 
     @Before
     public void setUp(){
@@ -36,7 +38,7 @@ public class TransitionsTest{
     public void checkLogoClick(){
         String actual = new HomePage()
                 .clickOnPersonalAccountButton()
-                .loginUser(TEST_EMAIL, TEST_PASSWORD)
+                .loginUser(Login.from(user))
                 .clickOnLogo();
 
         Assert.assertEquals(expectedHeading, actual);
@@ -47,7 +49,7 @@ public class TransitionsTest{
     public void checkConstructorLink(){
         String actual = new HomePage()
                 .clickOnPersonalAccountButton()
-                .loginUser(TEST_EMAIL, TEST_PASSWORD)
+                .loginUser(Login.from(user))
                 .clickOrderLink()
                 .clickOnConstructorLink();
 
@@ -59,7 +61,7 @@ public class TransitionsTest{
     public void logoutUser(){
         String actual = new HomePage()
                 .clickOnLoginButtonMainPage()
-                .loginUser(TEST_EMAIL, TEST_PASSWORD)
+                .loginUser(Login.from(user))
                 .clickLogoutButton()
                 .checkTextLogin();
 

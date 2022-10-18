@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import constants.Constants;
+import emity.Login;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -28,9 +29,9 @@ public class LoginPage{
         return emailRegField.getValue();
     }
 
-    public ProfilePage loginUser(String email, String password){
-        emailRegField.setValue(email);
-        passwordRegField.setValue(password);
+    public ProfilePage loginUser(Login login){
+        emailRegField.setValue(login.getEmail());
+        passwordRegField.setValue(login.getPassword());
         loginButtonMainPage.click();
         personalAccountButton.click();
         return new ProfilePage();

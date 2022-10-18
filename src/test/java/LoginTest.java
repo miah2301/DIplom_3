@@ -1,4 +1,9 @@
+import client.UserClient;
+import emity.Login;
+import emity.User;
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.ValidatableResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import pages.HomePage;
 import com.codeborne.selenide.Selenide;
@@ -7,15 +12,21 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static com.codeborne.selenide.Selenide.open;
+import static com.google.common.base.Ascii.toLowerCase;
 
 public class LoginTest{
-    private final String TEST_EMAIL = "testemail123@yandex.ru";
-    private final String TEST_PASSWORD = "password1234";
+    private User user;
+    private String accessToken;
+    UserClient userClient = new UserClient();
 
     @Before
     public void setUp(){
         String URL = "https://stellarburgers.nomoreparties.site/";
         open(URL);
+        user = User.getRandomUser();
+
+        ValidatableResponse getToken = userClient.createUser(user);
+        accessToken = StringUtils.substringAfter(getToken.extract().path("accessToken"), " ");
     }
 
     @DisplayName("Login using the -Login to account- button on the main page")
@@ -23,10 +34,10 @@ public class LoginTest{
     public void loginFromButtonMainPage(){
         String actual = new HomePage()
                 .clickOnLoginButtonMainPage()
-                .loginUser(TEST_EMAIL, TEST_PASSWORD)
+                .loginUser(Login.from(user))
                 .getEmailProfile();
 
-        Assert.assertEquals(TEST_EMAIL, actual);
+        Assert.assertEquals(toLowerCase(user.getEmail()), actual);
     }
 
     @DisplayName("Login via the -Personal Account- button")
@@ -34,10 +45,10 @@ public class LoginTest{
     public void loginFromPersonalAccountButton(){
         String actual = new HomePage()
                 .clickOnPersonalAccountButton()
-                .loginUser(TEST_EMAIL, TEST_PASSWORD)
+                .loginUser(Login.from(user))
                 .getEmailProfile();
 
-        Assert.assertEquals(TEST_EMAIL, actual);
+        Assert.assertEquals(toLowerCase(user.getEmail()), actual);
     }
 
     @DisplayName("Login via the button in the registration form")
@@ -47,10 +58,10 @@ public class LoginTest{
                 .clickOnPersonalAccountButton()
                 .clickOnRegButton()
                 .clickLoginLink()
-                .loginUser(TEST_EMAIL, TEST_PASSWORD)
+                .loginUser(Login.from(user))
                 .getEmailProfile();
 
-        Assert.assertEquals(TEST_EMAIL, actual);
+        Assert.assertEquals(toLowerCase(user.getEmail()), actual);
     }
 
     @DisplayName("Login via the button in the password recovery form")
@@ -60,14 +71,15 @@ public class LoginTest{
                 .clickOnPersonalAccountButton()
                 .clickRecoverPasswordLink()
                 .clickLoginLinkRecover()
-                .loginUser(TEST_EMAIL, TEST_PASSWORD)
+                .loginUser(Login.from(user))
                 .getEmailProfile();
 
-        Assert.assertEquals(TEST_EMAIL, actual);
+        Assert.assertEquals(toLowerCase(user.getEmail()), actual);
     }
 
     @After
     public void tearDown(){
+        userClient.deleteUser(accessToken);
         Selenide.closeWebDriver();
     }
 }

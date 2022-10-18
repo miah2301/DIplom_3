@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import emity.User;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -12,18 +13,18 @@ public class RegistrationPage{
 
     LoginPage loginPage = new LoginPage();
 
-    public LoginPage registrationNewUser(String name, String email, String password){
-        nameRegField.setValue(name);
-        loginPage.emailRegField.setValue(email);
-        loginPage.passwordRegField.setValue(password);
+    public LoginPage registrationNewUser(User user){
+        nameRegField.setValue(user.getName());
+        loginPage.emailRegField.setValue(user.getEmail());
+        loginPage.passwordRegField.setValue(user.getPassword());
         buttonRegistration.click();
         return new LoginPage();
     }
 
-    public String registrationNewUserWithBadPassword(String name, String email, String password){
-        nameRegField.setValue(name);
-        loginPage.emailRegField.setValue(email);
-        loginPage.passwordRegField.setValue(password);
+    public String registrationNewUserWithBadPassword(User user){
+        nameRegField.setValue(user.getName());
+        loginPage.emailRegField.setValue(user.getEmail());
+        loginPage.passwordRegField.setValue(user.getPassword());
         buttonRegistration.click();
         return errorPasswordMessage.getText();
     }
