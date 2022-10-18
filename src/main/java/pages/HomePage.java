@@ -5,10 +5,9 @@ import constants.Constants;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class HomePage{
+public class HomePage {
 
     public static final String URL = "https://stellarburgers.nomoreparties.site/";
-
     private final SelenideElement rollsLinkAttribute = $x("//span[text()='Булки']/..");
     private final SelenideElement souseLink = $x("//span[text()='Соусы']");
     private final SelenideElement souseLinkAttribute = $x("//span[text()='Соусы']/..");

@@ -1,7 +1,6 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import constants.Constants;
 import emity.Login;
 
 import static com.codeborne.selenide.Selenide.$x;
