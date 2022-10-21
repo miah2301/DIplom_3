@@ -1,5 +1,6 @@
 import client.UserClient;
 import com.codeborne.selenide.Selenide;
+import emity.Login;
 import emity.User;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
@@ -16,16 +17,13 @@ public class RegistrationTest{
 
     UserClient userClient = new UserClient();
     private User user;
-    private String accessToken;
     private final static String expectedErrorMessage = "Некорректный пароль";
+    private final static String expectedButtonText = "Войти";
 
     @Before
     public void setUp(){
         open(HomePage.URL);
         user = User.getRandomUser();
-
-        ValidatableResponse getToken = userClient.createUser(user);
-        accessToken = StringUtils.substringAfter(getToken.extract().path("accessToken"), " ");
     }
 
     @DisplayName("Verification of successful registration with a random user")
@@ -35,9 +33,9 @@ public class RegistrationTest{
                 .clickOnPersonalAccountButton()
                 .clickOnRegButton()
                 .registrationNewUser(user)
-                .getTextEmailField();
+                .getEnterText();
 
-        Assert.assertEquals(user.getEmail(), actual);
+        Assert.assertEquals(expectedButtonText, actual);
     }
 
     @DisplayName("Checking registration with a password less than 6 characters long")
@@ -55,6 +53,9 @@ public class RegistrationTest{
 
     @After
     public void tearDown(){
+        ValidatableResponse getToken = userClient.loginUser(Login.from(user));
+        String accessToken = StringUtils.substringAfter(getToken.extract().path("accessToken"), " ");
+
         if (accessToken != null) {
             userClient.deleteUser(accessToken);
         }

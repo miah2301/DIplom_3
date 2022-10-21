@@ -5,7 +5,7 @@ import emity.Login;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class LoginPage{
+public class LoginPage {
     protected final SelenideElement registrationLink = $x("//a[@class = 'Auth_link__1fOlj'][text() = 'Зарегистрироваться']");
     protected final SelenideElement emailRegField = $x("//label[text() = 'Email']/following-sibling::input");
     protected final SelenideElement passwordRegField = $x("//label[text() = 'Пароль']/following-sibling::input");
@@ -24,8 +24,8 @@ public class LoginPage{
         return new RecoverPasswordPage();
     }
 
-    public String getTextEmailField(){
-        return emailRegField.getValue();
+    public String getEnterText(){
+        return loginButtonMainPage.getText();
     }
 
     public ProfilePage loginUser(Login login){
